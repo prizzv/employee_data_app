@@ -16,9 +16,9 @@ async function getAllEmployees(req, res, next) {
             }
         }
 
-        res.status(200).json({ data: employees });
+        res.status(200).json({ success: true, data: employees });
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ success: false, error });
     }
 }
 
@@ -32,9 +32,9 @@ async function addEmployee(req, res, next) {
         const employee = new Employee(req.body);
         await employee.save();
 
-        res.status(201).json({ employee });
+        res.status(201).json({ success: true, data: employee });
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ success: false, error });
     }
 }
 
@@ -47,10 +47,10 @@ async function removeEmployee(req, res, next) {
 
         const employee = await Employee.findById(req.body.id);
         await employee.remove();
-        res.status(200).json({ employee });
+        res.status(200).json({ success: true, data: employee });
     }
     catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ success: false, error });
     }
 }
 
@@ -61,10 +61,10 @@ async function updateEmployee(req, res, next) {
                 .body.id, req.body,
                 { new: true }
             );
-        res.status(200).json({ employee });
+        res.status(200).json({ success: true, data: employee });
     }
     catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ success: false, error });
     }
 }
 
@@ -75,10 +75,10 @@ async function leaveEmployee(req, res, next) {
                 .body.id, req.body,
                 { new: true }
             );
-        res.status(200).json({ employee });
+        res.status(200).json({ success: true, data: employee });
     }
     catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ success: false, error });
     }
 }
 
