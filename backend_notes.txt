@@ -1,0 +1,10 @@
+backend tables using mongoDB
+
+// Employee Table
+employee_name
+joining_date
+leaving_date
+organization_name
+
+
+// from these two values I can figure out if the employee is currently active or not in the organization and handle it in the backend itself

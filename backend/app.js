@@ -3,9 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const dotenv = require('dotenv');
 
+const Database = require('./config/db');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var employeeRoute = require('./routes/employee');
+
+
+dotenv.config();
 
 var app = express();
 
@@ -19,16 +24,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const db = new Database(process.env.DB_URL);
+
+db.connect().catch((error) => {
+  console.log('Error connecting to the database');
+  console.log(error);
+});
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/employee', employeeRoute);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
