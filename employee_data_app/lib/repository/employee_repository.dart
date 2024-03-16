@@ -22,15 +22,15 @@ class EmployeeRepository extends ChangeNotifier {
 
       Logger().d(ApiPaths.getAllEmployees);
 
-      var response = await dio.get("http://192.168.0.112:8000/employee");
+      var response = await dio.get(ApiPaths.getAllEmployees);
 
       var employeeData = BaseListModel<Employee>.fromJson(
           response.data, (item) => Employee.fromJson(item));
-      
+
       if (employeeData.data != null) {
         employees = employeeData.data!;
-        isLoading = false;
       }
+      isLoading = false;
       notifyListeners();
     } catch (error) {
       hasError = true;

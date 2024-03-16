@@ -1,12 +1,11 @@
 class BaseUrlConstants {
-  static const String environment = "local";
+  static const String environment = "prod";
 
   String baseUrl() {
     if (environment == "prod") {
-      //TODO: add a production url HERE
-      return "";
+      return "https://employee-data-app.onrender.com";
     } else {
-      return "http://localhost:8000";
+      return "http://192.168.0.112:8000";
     }
   }
 }
